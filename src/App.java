@@ -2,8 +2,8 @@ public class App {
     static Employee[] employees = new Employee[10];
 
     public static void main(String[] args) {
+        // данные для массива
 
-// данные для массива
         Employee nicYV = new Employee("Никулин Юрий Владимирович", 1, 140);
         Employee vicGM = new Employee("Вицин Георгий Михайлович", 1, 130);
         Employee morEa = new Employee("Моргунов Евгений Александрович", 1, 120);
@@ -26,7 +26,8 @@ public class App {
         employees[8] = greNP;
         employees[9] = papAD;
 
-// проверка работы методов
+        // проверка работы методов
+
         System.out.println("Полная информация о всех сотрудниках:");
         printAllEmployeesData();
         System.out.println();
@@ -40,8 +41,6 @@ public class App {
         System.out.println();
         System.out.println("Список всех сотрудников:");
         printAllFullNames();
-
-
     }
 
     public static void printAllEmployeesData() {
@@ -50,7 +49,6 @@ public class App {
         }
     }
 
-
     public static double sumSalaryInMonth() {
         double sum = 0;
         for (Employee employee : employees) {
@@ -58,7 +56,6 @@ public class App {
         }
         return sum;
     }
-
 
     public static double minSalaryInMonth() {
         double min = employees[0].getSalary();
@@ -70,7 +67,6 @@ public class App {
         return min;
     }
 
-
     public static double maxSalaryInMonth() {
         double max = employees[0].getSalary();
         for (Employee employee : employees) {
@@ -81,17 +77,13 @@ public class App {
         return max;
     }
 
-
     public static double middleSalaryInMonth() {
         return sumSalaryInMonth() / employees.length;
     }
-
 
     public static void printAllFullNames() {
         for (Employee employee : employees) {
             System.out.println(employee.getFullName());
         }
     }
-
-
 }
