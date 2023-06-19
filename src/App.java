@@ -1,5 +1,4 @@
 public class App {
-
     static Employee[] employees = new Employee[10];
 
     public static void main(String[] args) {
@@ -11,10 +10,11 @@ public class App {
         Employee demAS = new Employee("Демьяненко Александр Сергеевич", 2, 100);
         Employee celNI = new Employee("Селезнева Наталья Игоревна", 2, 115);
         Employee varNV = new Employee("Варлей Наталья Владимировна", 2, 105);
-        Employee pugMI = new Employee("Пуговкин Михаил Иванович", 3, 90);
+        Employee pugMI = new Employee("Пуговкин Михаил Иванович", 3, 80);
         Employee basVP = new Employee("Басов Владимир Павлович", 3, 125);
-        Employee greNP = new Employee("Гребешкова Нина Павловна", 4, 85);
+        Employee greNP = new Employee("Гребешкова Нина Павловна", 4, 90);
         Employee papAD = new Employee("Папанов Анатолий Дмитриевич", 5, 130);
+
         employees[0] = nicYV;
         employees[1] = vicGM;
         employees[2] = morEa;
@@ -25,17 +25,18 @@ public class App {
         employees[7] = basVP;
         employees[8] = greNP;
         employees[9] = papAD;
+
 // проверка работы методов
         System.out.println("Полная информация о всех сотрудниках:");
         printAllEmployeesData();
         System.out.println();
         System.out.println("Всего расходы на зарплату в месяц: " + sumSalaryInMonth() + " рублей");
         System.out.println();
-        System.out.println("Минимальная зарплата за месяц составила "+minSalaryInMonth()+ " рублей");
+        System.out.println("Минимальная зарплата за месяц составила " + minSalaryInMonth() + " рублей");
         System.out.println();
-        System.out.println("Максимальная зарплата за месяц составила "+maxSalaryInMonth()+" рублей");
+        System.out.println("Максимальная зарплата за месяц составила " + maxSalaryInMonth() + " рублей");
         System.out.println();
-        System.out.println("Средняя зарплата за месяц составила " +middleSalaryInMonth()+ " рублей");
+        System.out.println("Средняя зарплата за месяц составила " + middleSalaryInMonth() + " рублей");
         System.out.println();
         System.out.println("Список всех сотрудников:");
         printAllFullNames();
@@ -49,6 +50,7 @@ public class App {
         }
     }
 
+
     public static double sumSalaryInMonth() {
         double sum = 0;
         for (Employee employee : employees) {
@@ -57,37 +59,39 @@ public class App {
         return sum;
     }
 
+
     public static double minSalaryInMonth() {
         double min = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i].getSalary() < employees[i + 1].getSalary()) {
-                min = employees[i].getSalary();
-            } else {
-                min = employees[i + 1].getSalary();
+        for (Employee employee : employees) {
+            if (employee.getSalary() < min) {
+                min = employee.getSalary();
             }
         }
         return min;
     }
 
+
     public static double maxSalaryInMonth() {
         double max = employees[0].getSalary();
-        for (int i = 0; i < employees.length - 1; i++) {
-            if (employees[i].getSalary() > employees[i + 1].getSalary()) {
-                max = employees[i].getSalary();
-            } else {
-                max = employees[i + 1].getSalary();
+        for (Employee employee : employees) {
+            if (employee.getSalary() > max) {
+                max = employee.getSalary();
             }
         }
         return max;
     }
 
+
     public static double middleSalaryInMonth() {
         return sumSalaryInMonth() / employees.length;
     }
+
 
     public static void printAllFullNames() {
         for (Employee employee : employees) {
             System.out.println(employee.getFullName());
         }
     }
+
+
 }
