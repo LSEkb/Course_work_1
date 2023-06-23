@@ -40,6 +40,29 @@ public class App {
         System.out.println();
         System.out.println("Список всех сотрудников:");
         printAllFullNames();
+        System.out.println();
+        // Проверка работы методов курсовой со средней сложностью
+        double indexPercent = 5;
+        indexSalaryTotal(indexPercent);
+        printAllEmployeesData(); // проверим, что зарплата проиндексировалась
+        System.out.println();
+        int department = 1;
+        System.out.println("Минимальная зарплата в отделе " + department + " у сотрудника: " + minSalaryEmployeeInDepartment(department));
+        System.out.println();
+        System.out.println("Максимальная зарплата в отделе " + department + " у сотрудника: " + maxSalaryEmployeeInDepartment(department));
+        System.out.println();
+        System.out.println("Сумма затрат на зарплату по отделу " + department + " равна " + sumSalaryInDepartment(department) + " руб");
+        System.out.println();
+        IndexSalaryInDepartment(10, 1);
+        printAllEmployeesDataInDepartmentWithinDep(1); // здесь же увидим и результат индексации по отделу
+        System.out.println();
+        double number1 = 100;
+        double number2 = 120;
+        System.out.println("Список сотрудников, чья зарплата ниже, чем " + number1 + ":");
+        belowSalaryEmployee(number1);
+        System.out.println();
+        System.out.println("Список сотрудников, чья зарплата не ниже, чем " + number2 + ":");
+        aboveSalaryEmployee(number2);
     }
 
     public static void printAllEmployeesData() {
@@ -79,6 +102,7 @@ public class App {
         }
         return employeeMax;
     }
+
     // у методов, определяющих сейчас сотрудника с минимальной/максимальной зарплатой, есть существенный
     // недостаток - они возвращают данные одного человека. если у нас несколько человек, то лучше сдеалть
     // возврат из метода массива, далее два варианта, каждый со своими недостатками:
@@ -138,4 +162,82 @@ public class App {
             System.out.println(employee.getFullName());
         }
     }
+
+    public static void indexSalaryTotal(double percent) {
+        for (Employee employee : employees) {
+            double salary = employee.getSalary() * (100 + percent) / 100;
+            employee.setSalary(salary);
+        }
+    }
+
+    public static Employee minSalaryEmployeeInDepartment(int department) {
+        // использована упрощенная модель для одного сотрудника
+        double min = employees[0].getSalary();
+        Employee employeeMinInDep = employees[0];
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department && employee.getSalary() <= min) {
+                min = employee.getSalary();
+                employeeMinInDep = employee;
+            }
+        }
+        return employeeMinInDep;
+    }
+
+    public static Employee maxSalaryEmployeeInDepartment(int department) {
+        // использована упрощенная модель для одного сотрудника
+        double max = employees[0].getSalary();
+        Employee employeeMaxInDep = employees[0];
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department && employee.getSalary() >= max) {
+                max = employee.getSalary();
+                employeeMaxInDep = employee;
+            }
+        }
+        return employeeMaxInDep;
+    }
+
+    public static double sumSalaryInDepartment(int department) {
+        double sum = 0;
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                sum += employee.getSalary();
+            }
+        }
+        return sum;
+    }
+
+    public static void IndexSalaryInDepartment(double percent, int department) {
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                double salary = employee.getSalary() * (100 + percent) / 100;
+                employee.setSalary(salary);
+            }
+        }
+    }
+
+    public static void printAllEmployeesDataInDepartmentWithinDep(int department) {
+        System.out.println("Список сотрудников отдела " + department + ":");
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                System.out.println("ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary() + ", ID " + employee.getId());
+            }
+        }
+    }
+
+    public static void belowSalaryEmployee(double num) {
+        for (Employee employee : employees) {
+            if (employee.getSalary() < num) {
+                System.out.println("ID " + employee.getId() + " ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary());
+            }
+        }
+    }
+
+    public static void aboveSalaryEmployee(double num) {
+        for (Employee employee : employees) {
+            if (employee.getSalary() >= num) {
+                System.out.println("ID " + employee.getId() + " ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary());
+            }
+        }
+    }
+
 }
