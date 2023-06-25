@@ -53,7 +53,7 @@ public class App {
         System.out.println();
         System.out.println("Сумма затрат на зарплату по отделу " + department + " равна " + sumSalaryInDepartment(department) + " руб");
         System.out.println();
-        IndexSalaryInDepartment(10, 1);
+        indexSalaryInDepartment(10, 1);
         printAllEmployeesDataInDepartmentWithinDep(1); // здесь же увидим и результат индексации по отделу
         System.out.println();
         double number1 = 100;
@@ -172,12 +172,14 @@ public class App {
 
     public static Employee minSalaryEmployeeInDepartment(int department) {
         // использована упрощенная модель для одного сотрудника
-        double min = employees[0].getSalary();
-        Employee employeeMinInDep = employees[0];
+        Employee employeeMinInDep = null;
         for (Employee employee : employees) {
-            if (employee.getDepartment() == department && employee.getSalary() <= min) {
-                min = employee.getSalary();
-                employeeMinInDep = employee;
+            if (employee != null && employee.getDepartment() == department) {
+                if (employeeMinInDep == null) {
+                    employeeMinInDep = employee;
+                } else if (employee.getSalary() < employeeMinInDep.getSalary()) {
+                    employeeMinInDep = employee;
+                }
             }
         }
         return employeeMinInDep;
@@ -185,12 +187,14 @@ public class App {
 
     public static Employee maxSalaryEmployeeInDepartment(int department) {
         // использована упрощенная модель для одного сотрудника
-        double max = employees[0].getSalary();
-        Employee employeeMaxInDep = employees[0];
+        Employee employeeMaxInDep = null;
         for (Employee employee : employees) {
-            if (employee.getDepartment() == department && employee.getSalary() >= max) {
-                max = employee.getSalary();
-                employeeMaxInDep = employee;
+            if (employee != null && employee.getDepartment() == department) {
+                if (employeeMaxInDep == null) {
+                    employeeMaxInDep = employee;
+                } else if (employee.getSalary() >= employeeMaxInDep.getSalary()) {
+                    employeeMaxInDep = employee;
+                }
             }
         }
         return employeeMaxInDep;
@@ -206,7 +210,7 @@ public class App {
         return sum;
     }
 
-    public static void IndexSalaryInDepartment(double percent, int department) {
+    public static void indexSalaryInDepartment(double percent, int department) {
         for (Employee employee : employees) {
             if (employee.getDepartment() == department) {
                 double salary = employee.getSalary() * (100 + percent) / 100;
@@ -219,7 +223,7 @@ public class App {
         System.out.println("Список сотрудников отдела " + department + ":");
         for (Employee employee : employees) {
             if (employee.getDepartment() == department) {
-                System.out.println("ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary() + ", ID " + employee.getId());
+                printEmployeeDataWithinDepartment(employee);
             }
         }
     }
@@ -227,7 +231,7 @@ public class App {
     public static void belowSalaryEmployee(double num) {
         for (Employee employee : employees) {
             if (employee.getSalary() < num) {
-                System.out.println("ID " + employee.getId() + " ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary());
+                printEmployeeDataWithinDepartment(employee);
             }
         }
     }
@@ -235,9 +239,14 @@ public class App {
     public static void aboveSalaryEmployee(double num) {
         for (Employee employee : employees) {
             if (employee.getSalary() >= num) {
-                System.out.println("ID " + employee.getId() + " ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary());
+                printEmployeeDataWithinDepartment(employee);
             }
         }
     }
 
+    // В описании задания курсовой в повышенной сложности в заданиях 2f, 3a и b прямо указано в задаче 2 - вывести данные сотрудника
+    // без указания отдела, в задаче 3 указан конкретный список - id, ФИО, зарплата. Для оптимизации вывода - внутренний метод:
+    private static void printEmployeeDataWithinDepartment(Employee employee) {
+        System.out.println("ID " + employee.getId() + " ФИО - " + employee.getFullName() + ", зарплата " + employee.getSalary());
+    }
 }
