@@ -1,22 +1,33 @@
 public class Employee {
-    private String fullName;
+    private String surname;
+    private String name;
+    private String patronymic;
     private int department;
     private double salary;
     private final int id;
 
     private static int idCounter = 1;
 
-    public Employee(String fullName, int department, double salary) {
-        this.fullName = fullName;
+    public Employee(String surname, String name, String patronymic, int department, double salary) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
         this.department = department;
         this.salary = salary;
         this.id = idCounter++;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getSurname() {
+        return surname;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
     public int getDepartment() {
         return department;
     }
@@ -30,7 +41,10 @@ public class Employee {
     }
 
     public void setDepartment(int department) {
-        this.department = department;
+        int n1 = 1, n2 = 5;
+        if (department >= n1 && department <= n2) {
+            this.department = department;
+        }
     }
 
     public void setSalary(double salary) {
@@ -39,6 +53,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "ФИО - " + fullName + ", отдел " + department + ", зарплата " + salary + ", ID " + id;
+        return "ID " + id + " ФИО - " + surname + " " + name + " " + patronymic + ", отдел " + department + ", зарплата " + salary;
     }
 }
