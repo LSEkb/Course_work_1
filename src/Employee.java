@@ -67,15 +67,15 @@ public class Employee {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object other) {
+        if (this == other) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (other == null || getClass() != other.getClass()) {
             return false;
         }
-        Employee employee = (Employee) o;
-        return (surname == ((Employee) o).getSurname() && name == ((Employee) o).getName() && patronymic == ((Employee) o).getPatronymic());
+        Employee employee = (Employee) other;
+        return (surname == ((Employee) other).getSurname() && name == ((Employee) other).getName() && patronymic == ((Employee) other).getPatronymic());
     }
 
     @Override
