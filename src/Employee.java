@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Employee {
     private String surname;
     private String name;
@@ -7,6 +9,7 @@ public class Employee {
     private final int id;
 
     private static int idCounter = 1;
+    static int startDep = 1, finalDep = 5;
 
     public Employee(String surname, String name, String patronymic, int department, double salary) {
         this.surname = surname;
@@ -15,6 +18,13 @@ public class Employee {
         this.department = department;
         this.salary = salary;
         this.id = idCounter++;
+    }
+
+    public Employee(String surname, String name, String patronymic) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.id=idCounter;
     }
 
     public String getSurname() {
@@ -28,6 +38,7 @@ public class Employee {
     public String getPatronymic() {
         return patronymic;
     }
+
     public int getDepartment() {
         return department;
     }
@@ -41,8 +52,7 @@ public class Employee {
     }
 
     public void setDepartment(int department) {
-        int n1 = 1, n2 = 5;
-        if (department >= n1 && department <= n2) {
+        if (department >= startDep && department <= finalDep) {
             this.department = department;
         }
     }
@@ -54,5 +64,23 @@ public class Employee {
     @Override
     public String toString() {
         return "ID " + id + " ФИО - " + surname + " " + name + " " + patronymic + ", отдел " + department + ", зарплата " + salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Employee employee = (Employee) o;
+        return (surname == ((Employee) o).getSurname() && name == ((Employee) o).getName() && patronymic == ((Employee) o).getPatronymic());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, surname, name, patronymic);
+
     }
 }
